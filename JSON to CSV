@@ -2,14 +2,14 @@
 import json
 import csv
 
-# Read the JSON file
+# Read JSON file
 json_filename = 'input.json'
 csv_filename = 'output.csv'
 
 with open(json_filename, 'r') as json_file:
     data = json.load(json_file)
 
-# Flatten the JSON data
+# Flatten JSON data
 flattened_data = []
 
 def flatten_json(y, parent_key=''):
