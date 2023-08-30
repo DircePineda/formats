@@ -1,5 +1,4 @@
-
-# Concise tranformation
+# TXT to CSV
 import csv
 
 # Input and output file paths
