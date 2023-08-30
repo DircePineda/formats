@@ -5,18 +5,18 @@ import csv
 html_filename = 'input.html'
 csv_filename = 'output.csv'
 
-# Read the HTML file
+# Read HTML file
 with open(html_filename, 'r', encoding='utf-8') as html_file:
     html_content = html_file.read()
 
 # Parse HTML using BeautifulSoup
 soup = BeautifulSoup(html_content, 'html.parser')
 
-# Extract and process data
-# Identify the HTML elements (<tr> (table row) & <td> (table cell)
+# Extract & process data
+# Identify HTML elements (<tr> (table row) & <td> (table cell)
 data_rows = []
-for row in soup.find_all('tr'):  # Assuming data is in table rows
-    cells = row.find_all('td')    # Assuming data is in table cells
+for row in soup.find_all('tr'):
+    cells = row.find_all('td')
     data = [cell.get_text() for cell in cells]
     data_rows.append(data)
 
