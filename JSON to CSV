@@ -1,15 +1,32 @@
 # JSON to CSV
 import json
-if __name__ == '__main__':
-    try:
-        with open('input.json', 'r') as f:
-            data = json.loads(f.read())
+import csv
 
-        output = ','.join([*data[0]])
-        for obj in data:
-            output += f'\n{obj["Name"]},{obj["age"]},{obj["birthyear"]}'
+# Read the JSON file
+json_filename = 'input.json'
+csv_filename = 'output.csv'
 
-        with open('output.csv', 'w') as f:
-            f.write(output)
-    except Exception as ex:
-        print(f'Error: {str(ex)}')
+with open(json_filename, 'r') as json_file:
+    data = json.load(json_file)
+
+# Flatten the JSON data
+flattened_data = []
+
+def flatten_json(y, parent_key=''):
+    global flattened_data
+    for k, v in y.items():
+        new_key = f"{parent_key}_{k}" if parent_key else k
+        if isinstance(v, dict):
+            flatten_json(v, new_key)
+        else:
+            flattened_data.append({new_key: v})
+
+flatten_json(data)
+
+# Write to CSV
+csv_headers = set().union(*(d.keys() for d in flattened_data))
+
+with open(csv_filename, 'w', newline='') as csv_file:
+    csv_writer = csv.DictWriter(csv_file, fieldnames=csv_headers)
+    csv_writer.writeheader()
+    csv_writer.writerows(flattened_data)
