@@ -1,35 +1,23 @@
 # TXT to CSV
 import csv
 
-# Input and output file paths
-input_file = '/kaggle/input/bloodinfectxt/blood2hinfected532nm5pp.txt'
-output_file = '/kaggle/working/bloodinfectxt.csv'
+txt_filename = 'input.txt'
+csv_filename = 'output.csv'
 
-# Read the input data from the text file
-with open(input_file, 'r') as f:
-    lines = f.readlines()
+# Read the TXT file
+with open(txt_filename, 'r') as txt_file:
+    lines = txt_file.readlines()
 
-# Remove any leading/trailing whitespaces and split the data using tabs
-data = [line.strip().split('\t') for line in lines]
+# Process the data (if needed)
+# Assuming each line of the TXT file represents a record.
 
-# Write the data to a CSV file
-with open(output_file, 'w', newline='') as f:
-    writer = csv.writer(f)
-    # Writing header row
-    writer.writerow(["X", "Y", "Wave", "Intensity"])
-    # Writing the rest of the data rows
-    writer.writerows(data)
+# Split lines and create a list of dictionaries with one key-value pair each
+data = [{'value': line.strip()} for line in lines]
 
-print(f"Data successfully converted and saved to '{output_file}'.")
-Data successfully converted and saved to '/kaggle/working/bloodinfectxt.csv'.
-# Extract columns
-import pandas as pd
+# Write to CSV
+csv_headers = ['value']
 
-# Load the CSV file into a DataFrame
-df = pd.read_csv('/kaggle/working/bloodinfectxt.csv', dtype=str) # dtype varies from: str (string or object) or float floating-point numbers
-
-# Extract the '#X' and '#Y' columns
-new_df = df.iloc[:, [0, 1]]
-
-# Save the extracted columns to a new CSV file
-new_df.to_csv('/kaggle/working/bloodinfectxt.extracted.csv', index=False)
+with open(csv_filename, 'w', newline='') as csv_file:
+    csv_writer = csv.DictWriter(csv_file, fieldnames=csv_headers)
+    csv_writer.writeheader()
+    csv_writer.writerows(data)
