@@ -1,0 +1,14 @@
+import tabula
+import pandas as pd
+
+pdf_filename = 'input.pdf'
+csv_filename = 'output.csv'
+
+# Step 1: Extract tables from the PDF
+tables = tabula.read_pdf(pdf_filename, pages='all', multiple_tables=True)
+
+# Step 2: Process and concatenate tables (if necessary)
+combined_table = pd.concat(tables, ignore_index=True)
+
+# Step 3: Write to CSV
+combined_table.to_csv(csv_filename, index=False)
