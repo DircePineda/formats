@@ -9,7 +9,7 @@ with open(txt_filename, 'r') as txt_file:
     lines = txt_file.readlines()
 
 # Process the data (if needed)
-# Assuming each line of the TXT file represents a record.
+# Assuming each line is a record
 
 # Split lines and create a list of dictionaries with one key-value pair each
 data = [{'value': line.strip()} for line in lines]
