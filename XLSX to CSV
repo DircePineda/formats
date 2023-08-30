@@ -1,0 +1,11 @@
+# XLSX to CSV
+import pandas as pd
+
+xlsx_filename = 'input.xlsx'
+csv_filename = 'output.csv'
+
+# Step 1: Read the XLSX file
+df = pd.read_excel(xlsx_filename)
+
+# Step 2: Write to CSV
+df.to_csv(csv_filename, index=False)
